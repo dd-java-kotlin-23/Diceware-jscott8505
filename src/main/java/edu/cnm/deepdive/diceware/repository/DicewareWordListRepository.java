@@ -1,5 +1,6 @@
-package edu.cnm.deepdive.diceware;
+package edu.cnm.deepdive.diceware.repository;
 
+import edu.cnm.deepdive.diceware.configuration.DicewareConfiguration;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,17 +21,17 @@ import org.springframework.stereotype.Service;
 class DicewareWordListRepository implements WordListRepository {
 
   private static final Pattern WORD_EXTRACTOR = Pattern.compile("^\\S+\\s+(\\S+)$");
+
   private final List<String> words;
   private final RandomGenerator rng;
 
   @Autowired
   DicewareWordListRepository(
-     @Value("${diceware.wordlist}") String wordListResource,
+    DicewareConfiguration configuration,
       RandomGenerator rng
   ) throws IOException {
     this.rng = rng;
-    // TODO: 7/8/26 Read word listResource content and create/populate words.
-    Resource resource = new ClassPathResource(wordListResource);
+    Resource resource = new ClassPathResource(configuration.getWordList());
     try (Stream<String> lines = Files.lines(Paths.get(resource.getURI()))) {
       words = lines
           .map(String::strip)

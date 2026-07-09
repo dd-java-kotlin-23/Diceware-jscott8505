@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.diceware;
+package edu.cnm.deepdive.diceware.repository;
 
 public interface WordListRepository {
 

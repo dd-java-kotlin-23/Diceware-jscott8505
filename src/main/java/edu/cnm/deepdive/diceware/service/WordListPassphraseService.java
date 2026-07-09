@@ -1,14 +1,15 @@
 package edu.cnm.deepdive.diceware.service;
 
-import edu.cnm.deepdive.diceware.WordListRepository;
+import edu.cnm.deepdive.diceware.repository.WordListRepository;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
- class WordListPassphraseService implements PassphraseService {
+class WordListPassphraseService implements PassphraseService {
 
   private final WordListRepository repository;
-
 
   @Autowired
   WordListPassphraseService(WordListRepository repository) {
@@ -17,11 +18,9 @@ import org.springframework.stereotype.Service;
 
   @Override
   public String[] generate(int length) {
-    String[] words = new String[length];
-    for (int i = 0; i < words.length; i++){
-      words[i] = repository.getRandom();
-    }
-    return words;
+    return Stream.generate(repository::getRandom)
+        .limit(length)
+        .toArray(String[]::new);
   }
 
 }
