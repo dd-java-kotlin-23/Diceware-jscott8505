@@ -10,6 +10,16 @@
 
 <body>
 
+<form method = "get">
+  <label for="length">Length:</label>
+  <input
+    id="length"
+    name="length"
+    type="text"
+    th:value="${length}">
+  <button type="submit">Submit</button>
+</form>
+
 <ul>
   <li
       th:each="word : ${words}"

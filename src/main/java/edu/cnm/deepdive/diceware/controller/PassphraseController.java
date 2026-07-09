@@ -44,6 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
       Model model
   ) {
    model.addAttribute("words", service.generate(length));
+   model.addAttribute("length", length);
    return "list";
   }
 

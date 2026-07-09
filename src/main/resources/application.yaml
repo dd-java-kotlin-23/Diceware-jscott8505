@@ -4,3 +4,8 @@ spring:
 
 diceware:
   word-list: word-list.properties
+
+server:
+  servlet:
+    context-path: /diceware
+  port: 18181
